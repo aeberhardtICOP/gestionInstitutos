@@ -1,6 +1,6 @@
 package entidades;
 import java.util.Scanner;
-public class Empleado extends Persona {
+public abstract class Empleado extends Persona {
 //private boolean esActivo=true;
 private static int nro=1;
 private int nroLegajo;
@@ -20,6 +20,10 @@ public Empleado(int añoIncorp) {
 	super();
 	this.nroLegajo = nro++;
 	this.añoIncorp = añoIncorp;
+}
+public void mostrar() {
+	super.mostrar();
+	System.out.println("Nro Legajo: "+this.nroLegajo+", Año de incorp: "+this.añoIncorp);
 }
 public int getNroLegajo() {
 	return nroLegajo;

@@ -14,6 +14,9 @@ public Departamento() {
 public Departamento(String nombre) {
 	this.nombre = nombre;
 }
+public void mostrar() {
+	System.out.println("Nombre de departamento: "+this.nombre);
+}
 public String getNombre() {
 	return nombre;
 }
