@@ -19,7 +19,7 @@ private static String eleccion="";
 		System.out.println("10: Mostrar cursos disponibles");
 		System.out.println("11: Mostrar alumnos inscriptos a curso");
 		System.out.println("12: Agregar seccion");
-		System.out.println("13: Agregar departamento");
+		System.out.println("13: Agregar grupo de cursado");
 		
 		System.out.println("q: Salir");	
 		System.out.println("");
@@ -43,8 +43,8 @@ private static String eleccion="";
 		Curso curso2 = new Curso("Redes y comunicacion");
 		instituto.agregarCurso(curso2);
 		instituto.agregarCurso(curso);
-		Matricula matricula = new Matricula(1,2022);
-		Matricula matricula2 = new Matricula(2,2023);
+		Matricula matricula = new Matricula(curso,2022);
+		Matricula matricula2 = new Matricula(curso,2023);
 		instituto.agregarMatricula(matricula2);
 		instituto.agregarMatricula(matricula);
 		while (!eleccion.equals("q"))
@@ -57,12 +57,13 @@ private static String eleccion="";
 				instituto.agregarPersona();
 				break;
 			case "2":
-				System.out.println("Elegi la opcion 2 -> Vehiculos disponibles");
+				System.out.println("Elegi la opcion 2 -> Cambiar estado civil de la persona");
+				//FALTAAAA
 				System.out.println("");
 				break;
 			case "3":
-				// Agregar vehiculo;
-				System.out.println("Elegi la opcion 3");
+				System.out.println("Elegi la opcion 3 -> Reasignacion de legajo");
+				instituto.reasigancionLegajo();
 				System.out.println("");
 				break;
 			case "4":
@@ -73,28 +74,36 @@ private static String eleccion="";
 				instituto.cargarCurso();
 				break;
 			case "6":
+				System.out.println("Eligio la opcion 6 -> Cambiar departamento a profesor");
+				//FALTAAAA
 				break;
 			case "7":
+				System.out.println("Eligio la opcion 6 -> Cambiar seccion a empleado de servicio");
+				//FALTAAA
 				break;
 			case "8":
 				System.out.println("Eligió la opcion 8 -> Mostrar personas");
 				instituto.mostrarPersonas();
 				break;
 			case "9":
-				
+				System.out.println("Eligió la opcion 9 -> Mostrar Informacion");
+				instituto.motrar();
 				break;
 			case "10":
 				System.out.println("Eligio la opcion 10 -> Mostrar cursos");
 				instituto.mostrarCursos();
 				break;
 			case "11":
-				
+				System.out.println("Eligio la opcion 11 -> Mostrar alumnos inscriptos a cursos");
+				//FALTAAA
 				break;
 			case "12":
-				
+				System.out.println("Eligio la opcion 12 -> Agregar seccion");
+				//FALTAAAA
 				break;
 			case "13":
-				
+				System.out.println("Eligió la opcion 13 -> Agregar grupo de cursado");
+				instituto.crearNuevoGrupo();
 				break;
 				
 			case "q":

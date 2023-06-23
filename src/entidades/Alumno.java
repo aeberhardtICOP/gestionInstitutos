@@ -10,8 +10,8 @@ public Alumno() {
 	super();
 	this.cursos=new ArrayList();
 }
-public Alumno(String nombre, String apellido, estadoCivil estCivil) {
-	super(nombre, apellido, estCivil);
+public Alumno(String nombre, String apellido, estadoCivil estCivil,int dni) {
+	super(nombre, apellido, estCivil, dni);
 	this.cursos=new ArrayList();
 }
 public void matricularCurso(Matricula matricula) {

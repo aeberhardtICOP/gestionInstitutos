@@ -38,6 +38,12 @@ public Instituto(String nombre, String direccion) {
 	this.deptos=new ArrayList();
 
 }
+public void motrar() {
+	System.out.println("------------------ ");
+	System.out.println("| "+this.nombre+" |");
+	System.out.println("------------------ ");
+	System.out.println("Direccion: "+this.direccion);
+}
 
 public String getNombre() {
 	return nombre;
@@ -54,6 +60,7 @@ public String getDireccion() {
 public void setDireccion(String direccion) {
 	this.direccion = direccion;
 }
+//PERSONAS
 public void agregarPersona() {
 	System.out.println("Ingrese opcion:" );
 	System.out.println("1)Agregar Alumno"
@@ -70,7 +77,7 @@ public void agregarPersona() {
 		for(int i = 0; i<deptos.size();i++) {
 			System.out.print(i+")"+(deptos.get(i)).getNombre()+", ");
 		}
-		System.out.println("Ingrese el nro del departamento que desea vincular: ");
+		System.out.println("\nIngrese el nro del departamento que desea vincular: ");
 		int nro = scanner.nextInt();
 		for(int i = 0; i<deptos.size();i++) { 
 			if (nro == i) {
@@ -84,7 +91,7 @@ public void agregarPersona() {
 		for(int i = 0; i<secciones.size();i++) {
 			System.out.print(i+")"+(secciones.get(i)).getNombre()+", ");
 		}
-		System.out.println("Ingrese el nro de la seccion que desea vincular: ");
+		System.out.println("\nIngrese el nro de la seccion que desea vincular: ");
 		int num = scanner.nextInt();
 		for(int i = 0; i<deptos.size();i++) { 
 			if (num == i) {
@@ -96,7 +103,148 @@ public void agregarPersona() {
 		default:
 			System.out.println("No ingreso una opcion correcta.");
 	}
+	
 }
+public void mostrarPersonas() {
+	System.out.println("Seleccione que desea ver: \n1)Alumnos \n2)Profesores \n3)Empleados de servicio \n4)Mostrar todas las personas");
+	int o=scanner.nextInt();
+	switch(o) {
+	case 1:
+		for (int i=0;i<personas.size();i++) {
+			if(personas.get(i) instanceof Alumno) {
+				personas.get(i).mostrar();
+			}
+		}
+		break;
+	case 2:
+		for (int i=0;i<personas.size();i++) {
+			if(personas.get(i) instanceof Profesor) {
+				personas.get(i).mostrar();
+			}
+		}
+		break;
+	case 3:
+		for (int i=0;i<personas.size();i++) {
+			if(personas.get(i) instanceof DeServicio) {
+				personas.get(i).mostrar();
+			}
+		}
+		break;
+	case 4:
+		for (int i=0;i<personas.size();i++) {
+			personas.get(i).mostrar();
+		}
+		break;
+	default:
+		System.out.println("Opcion no valida");
+	}
+}
+public int buscarPersona() {
+	System.out.println("Ingrese filtro de busqueda: \n1)Alumnos \n2)Empleados \n3)Profesor \n4)Empleado de Servicio \n5)Todas las personas");
+	int opc=scanner.nextInt();
+	System.out.println("Ingrese dni:");
+	int dni = scanner.nextInt();
+	switch(opc) {
+	case 1:
+		for(int i=0;i<personas.size();i++) {
+			if(this.personas.get(i) instanceof Alumno) {
+				if(dni==personas.get(i).getDni()) {
+					return i;
+				}
+			}
+		}
+
+	case 2:
+		for(int i=0;i<personas.size();i++) {
+			if(this.personas.get(i) instanceof Empleado) {
+				if(dni==personas.get(i).getDni()) {
+					return i;
+				}
+			}
+		}
+		break;
+	case 3:
+		for(int i=0;i<personas.size();i++) {
+			if(this.personas.get(i) instanceof Profesor ) {
+				if(dni==personas.get(i).getDni()) {
+					return i;
+				}
+			}
+		}
+		break;
+	case 4:
+		for(int i=0;i<personas.size();i++) {
+			if(this.personas.get(i) instanceof DeServicio) {
+				if(dni==personas.get(i).getDni()) {
+					return i;
+				}
+			}
+		}
+		break;
+	case 5:
+		for(int i=0;i<personas.size();i++) {
+				if(dni==personas.get(i).getDni()) {
+					return i;
+				}
+			}
+	}
+	
+	return -1;
+}	
+
+//EMPLEADO
+public void reasigancionLegajo() {
+	int indiceE=buscarPersona();
+	if(indiceE!=-1 && personas.get(indiceE)instanceof Empleado) {
+		Empleado empleado = (Empleado)personas.get(indiceE);
+		if(empleado instanceof Profesor) {
+			Profesor profesor = (Profesor)empleado;
+			Profesor prof = new Profesor(profesor.getNombre(), profesor.getApellido(), profesor.getEstado(), profesor.getDni(), profesor.getAñoIncorp(), profesor.getDepto());
+			prof.setNumId(profesor.getNumId());
+			profesor.setDni(0);
+			profesor.cambiarLegajo();
+			personas.add(prof);
+		}else if(empleado instanceof DeServicio) {
+			DeServicio deservicio = (DeServicio)empleado;
+			DeServicio servi = new DeServicio(deservicio.getNombre(), deservicio.getApellido(), deservicio.getEstado(), deservicio.getDni(), deservicio.getAñoIncorp(), deservicio.getSeccion());
+			servi.setNumId(deservicio.getNumId());
+			deservicio.setDni(0);
+			deservicio.cambiarLegajo();
+			personas.add(servi);
+		}
+	}
+	
+}
+//MATRICULA O GRUPO DE CURSADO.
+public void crearNuevoGrupo() {
+	System.out.println("------------------------- ");
+	System.out.println("| Registrar nuevo grupo |");
+	System.out.println("------------------------- ");
+	System.out.println("Cursos disponibles:");
+	mostrarCursos();
+	System.out.print("Ingrese ID de curso: ");
+	System.out.println();
+	int id=scanner.nextInt();
+	boolean encontrado=false;
+	int index= -1;
+	int i=0;
+	while(encontrado!=true && i<cursos.size()) {
+		if(cursos.containsKey(i)&&cursos.get(i).equals(id)) {
+			index=i;
+			encontrado=true;
+		}
+		i++;
+	}
+	System.out.print("Ingrese año: ");
+	int año=scanner.nextInt();
+	System.out.println();
+	if(encontrado!=true) {
+		gruposDeCursado.add(new Matricula(cursos.get(i), año));
+	}else {
+		System.out.println("ERROR: id incorrecto o curso inexistente");
+	}
+}
+
 //CURSOS
 public void cargarCurso() {
 	Curso curso = new Curso();
@@ -113,28 +261,25 @@ for (Map.Entry<Integer, Curso> entry : cursos.entrySet()) {
 }	
 System.out.println();
 }
-public void matricularAlumnoCurso(Alumno alumno) {
+public void matricularAlumnoCurso() {
 	String nombre=null;
 	System.out.println("Cursos disponibles: ");
 	for (int i=0;i<gruposDeCursado.size();i++) {
-		int id = gruposDeCursado.get(i).getIdCurso();
-		System.out.print(i+")ID: "+id);
-		for(Map.Entry<Integer, Curso> entry : cursos.entrySet()) {
-			if(entry.getKey().equals(id)) {
-				nombre=entry.getValue().getNombre();
-			}
-		}
-		System.out.print(" NOMBRE: "+nombre + " AÑO: "+gruposDeCursado.get(i).getAño());
-		System.out.println();
+		Curso curso = gruposDeCursado.get(i).getCurso();
+		System.out.println(i+")ID: "+curso.getIdCurso()+", NOMBRE: " + curso.getNombre());
+		System.out.println("AÑO: "+gruposDeCursado.get(i).getAño());
 	}
 	System.out.println("Ingrese nro de curso al que desea matricularse: ");
 	int indiceGC=scanner.nextInt();
-	if(indiceGC < gruposDeCursado.size()) {
+	int indiceAL=buscarPersona();
+	if(indiceAL!=-1) {
+		gruposDeCursado.get(indiceGC).agregarAlumno((Alumno)personas.get(indiceAL));
+		Alumno alumno = (Alumno)personas.get(indiceAL);
 		alumno.matricularCurso(gruposDeCursado.get(indiceGC));
-		gruposDeCursado.get(indiceGC).agregarAlumno(alumno);
-	}
-	
+		}
 }
+//DEPARTAMENTOS
+//public void cambiarDepto
 public void agragrDepto(Departamento depto) {
 	this.deptos.add(depto);
 }
@@ -144,10 +289,7 @@ public void agregarMatricula(Matricula matricula) {
 public void agregarSeccion(Seccion seccion) {
 	this.secciones.add(seccion);
 }
-public void mostrarPersonas() {
-	for (int i=0;i<personas.size();i++) {
-		personas.get(i).mostrar();
-	}
+
 }
 
 //public HashMap<Curso, Integer> getCursos() {
@@ -158,6 +300,3 @@ public void mostrarPersonas() {
 //	this.cursos = cursos;
 //}
 
-
-
-}

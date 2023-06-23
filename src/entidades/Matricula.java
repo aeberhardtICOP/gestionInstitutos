@@ -1,15 +1,16 @@
 package entidades;
 import java.util.ArrayList;
-
+import java.util.Scanner;
 public class Matricula {
-private int idCurso;
+private Curso curso;
 private ArrayList<Alumno>alumnos;
 private int año;
 
+Scanner scanner = new Scanner(System.in);
 
-public Matricula(int idCurso, int año) {
+public Matricula(Curso curso, int año) {
 	super();
-	this.idCurso = idCurso;
+	this.curso = curso;
 	this.año = año;
 	alumnos= new ArrayList();
 }
@@ -17,6 +18,7 @@ public void agregarAlumno(Alumno alumno) {
 	alumnos.add(alumno);
 }
 public void mostrar() {
+	System.out.println("ID: "+this.curso.getIdCurso()+", NOMBRE: "+this.curso.getNombre());
 	System.out.println("Año: "+this.año);
 	for (int i=0;i<alumnos.size();i++) {
 		System.out.println((alumnos.get(i)).getNombre()+" "+(alumnos.get(i).getApellido())+", ");
@@ -24,11 +26,11 @@ public void mostrar() {
 	System.out.println();
 }
 
-public int getIdCurso() {
-	return idCurso;
+public Curso getCurso() {
+	return this.curso;
 }
-public void setIdCurso(int idCurso) {
-	this.idCurso = idCurso;
+public void setIdCurso(Curso curso) {
+	this.curso = curso;
 }
 public int getAño() {
 	return año;

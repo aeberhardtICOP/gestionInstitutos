@@ -7,6 +7,13 @@ public Profesor() {
 	super();
 }
 
+
+public Profesor(String nombre, String apellido, estadoCivil estCivil, int dni, int añoIncorp, Departamento depto) {
+	super(nombre, apellido, estCivil, dni, añoIncorp);
+	this.depto = depto;
+}
+
+
 public Profesor(Departamento depto) {
 	super();
 	this.depto = depto;
