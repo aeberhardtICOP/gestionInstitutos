@@ -1,10 +1,19 @@
 package entidades;
 
+import java.util.Scanner;
+
 public class Seccion {
 private String nombre;
 
+Scanner scanner = new Scanner(System.in);
+
 public Seccion() {
 	super();
+	System.out.println("---------------------------- ");
+	System.out.println("| Registrar nueva seccion: |");
+	System.out.println("----------------------------");
+	System.out.println("Ingrese Nombre: ");
+	this.nombre=scanner.nextLine();
 }
 
 public Seccion(String nombre) {

@@ -2,9 +2,8 @@ package entidades;
 import java.util.Scanner;
 public class Departamento {
 private String nombre;
-
+Scanner scanner = new Scanner(System.in);
 public Departamento() {
-	Scanner scanner = new Scanner(System.in);
 	System.out.println("--------------------------------- ");
 	System.out.println("| Registrar nuevo departamento: |");
 	System.out.println("--------------------------------- ");

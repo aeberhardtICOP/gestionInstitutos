@@ -1,6 +1,6 @@
 package entidades;
 import java.util.Scanner;
-enum estadoCivil{SOLTERO, CASADO, VIUDO, DIVORCIADO}
+//enum estadoCivil{SOLTERO, CASADO, VIUDO, DIVORCIADO}
 public abstract class Persona {
 private static int num=1;
 private String nombre;
@@ -54,7 +54,7 @@ public Persona(String nombre, String apellido, estadoCivil estCivil, int dni) {
 }
 public void mostrar() {
 	System.out.println("-----------------------------------------------------------");
-	System.out.println("Nombre: "+nombre+"\nApellido: "+ apellido+"\nE.Civil: "+this.estado +"\n DNI: "+this.dni);
+	System.out.println("Nombre: "+nombre+"\nApellido: "+ apellido+"\nE.Civil: "+this.estado +"\nDNI: "+this.dni);
 	System.out.println("ID: "+this.numId);
 	System.out.println("-----------------------------------------------------------");
 }
@@ -73,7 +73,7 @@ public void setApellido(String apellido) {
 public estadoCivil getEstado() {
 	return estado;
 }
-public void setEstado(String eCivil) {
+public void setEstado() {
 	System.out.println("Ingrese estado civil: {1)SOLTERO, 2)CASADO, 3)VIUDO, 4)DIVORCIADO}");
 	int esCivil=scanner.nextInt();
 	switch(esCivil) {

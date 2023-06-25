@@ -36,13 +36,31 @@ public Instituto(String nombre, String direccion) {
 	this.personas=new ArrayList();
 	this.cursos=new HashMap();
 	this.deptos=new ArrayList();
+	this.secciones=new ArrayList();
+	this.gruposDeCursado=new ArrayList();
 
 }
-public void motrar() {
+public void mostrar() {
 	System.out.println("------------------ ");
 	System.out.println("| "+this.nombre+" |");
 	System.out.println("------------------ ");
 	System.out.println("Direccion: "+this.direccion);
+	System.out.println("Cursos dictados:");
+	for (Map.Entry<Integer, Curso> entry : cursos.entrySet()) {
+		Curso curso=entry.getValue();
+		System.out.print(curso.getNombre()+", ");
+	}	
+	System.out.println();
+	System.out.println("Departamentos:");
+	for (int i=0;i<deptos.size();i++) {
+		System.out.print(deptos.get(i).getNombre()+", ");
+	}
+	System.out.println();
+	System.out.println("Secciones:");
+	for (int i=0;i<secciones.size();i++) {
+		System.out.print(secciones.get(i).getNombre()+", ");
+	}
+	System.out.println();
 }
 
 public String getNombre() {
@@ -190,7 +208,16 @@ public int buscarPersona() {
 	}
 	
 	return -1;
-}	
+}
+public void agregarPersona(Persona persona){
+	personas.add(persona);
+}
+public void cambiarEstadoCivil() {
+	System.out.println("Seleccione persona que desea modificar: ");
+	int indiceP=buscarPersona();
+	personas.get(indiceP).setEstado();
+	
+}
 
 //EMPLEADO
 public void reasigancionLegajo() {
@@ -214,6 +241,42 @@ public void reasigancionLegajo() {
 		}
 	}
 	
+}
+//PROFESOR
+public void cambiarDepto() {
+	int indiceP=buscarPersona();
+	if (personas.get(indiceP)instanceof Profesor) {
+		System.out.println("Seleccione departamento nuevo:");
+		System.out.println("Los departamentos disponinles son: ");
+		for(int i = 0; i<deptos.size();i++) {
+			System.out.print(i+")"+(deptos.get(i)).getNombre()+", ");
+		}
+		int o=scanner.nextInt();
+		if (o<deptos.size()) {
+			Profesor prof =(Profesor) personas.get(indiceP);
+			prof.setDepto(deptos.get(o));
+		}
+	}else {
+		System.out.println("la persona que selecciono no es profesor.");
+	}
+}
+//DESERVICIO
+public void cambiarSeccion() {
+	int indiceDS=buscarPersona();
+	if (personas.get(indiceDS)instanceof DeServicio) {
+		System.out.println("Seleccione seccion nueva:");
+		System.out.println("Las secciones disponinles son: ");
+		for(int i = 0; i<secciones.size();i++) {
+			System.out.print(i+")"+(secciones.get(i)).getNombre()+", ");
+		}
+		int o=scanner.nextInt();
+		if (o<secciones.size()) {
+			DeServicio deser =(DeServicio) personas.get(indiceDS);
+			deser.setSeccion(secciones.get(o));
+		}
+	}else {
+		System.out.println("la persona que selecciono no es empleado de servicio.");
+	}
 }
 //MATRICULA O GRUPO DE CURSADO.
 public void crearNuevoGrupo() {
@@ -244,6 +307,40 @@ public void crearNuevoGrupo() {
 		System.out.println("ERROR: id incorrecto o curso inexistente");
 	}
 }
+public void matricularAlumnoCurso() {
+	System.out.println("Cursos disponibles: ");
+	for (int i=0;i<gruposDeCursado.size();i++) {
+		Curso curso = gruposDeCursado.get(i).getCurso();
+		System.out.println(i+")ID: "+curso.getIdCurso()+", NOMBRE: " + curso.getNombre());
+		System.out.println("AÑO: "+gruposDeCursado.get(i).getAño());
+	}
+	System.out.println("Ingrese nro de curso al que desea matricularse: ");
+	int indiceGC=scanner.nextInt();
+	int indiceAL=buscarPersona();
+	if(indiceAL!=-1) {
+		gruposDeCursado.get(indiceGC).agregarAlumno((Alumno)personas.get(indiceAL));
+		Alumno alumno = (Alumno)personas.get(indiceAL);
+		alumno.matricularCurso(gruposDeCursado.get(indiceGC));
+		}
+}
+public void matricularAlumnoCurso(Alumno alumno, Matricula grupoCurso) {
+	alumno.matricularCurso(grupoCurso);
+	grupoCurso.agregarAlumno(alumno);
+}
+
+public void mostrarAlumnosCurso() {
+	System.out.println("Seleccione curso: ");
+	System.out.println("Los cursos activos son: ");
+	for (int i=0;i<gruposDeCursado.size();i++) {
+		Curso curso = gruposDeCursado.get(i).getCurso();
+		System.out.println(i+")ID: "+curso.getIdCurso()+", NOMBRE: " + curso.getNombre());
+		System.out.println("AÑO: "+gruposDeCursado.get(i).getAño());
+	}
+	int o=scanner.nextInt();
+	if (o<gruposDeCursado.size()) {
+		gruposDeCursado.get(o).mostrarInscriptos();
+	}
+}
 
 //CURSOS
 public void cargarCurso() {
@@ -261,25 +358,8 @@ for (Map.Entry<Integer, Curso> entry : cursos.entrySet()) {
 }	
 System.out.println();
 }
-public void matricularAlumnoCurso() {
-	String nombre=null;
-	System.out.println("Cursos disponibles: ");
-	for (int i=0;i<gruposDeCursado.size();i++) {
-		Curso curso = gruposDeCursado.get(i).getCurso();
-		System.out.println(i+")ID: "+curso.getIdCurso()+", NOMBRE: " + curso.getNombre());
-		System.out.println("AÑO: "+gruposDeCursado.get(i).getAño());
-	}
-	System.out.println("Ingrese nro de curso al que desea matricularse: ");
-	int indiceGC=scanner.nextInt();
-	int indiceAL=buscarPersona();
-	if(indiceAL!=-1) {
-		gruposDeCursado.get(indiceGC).agregarAlumno((Alumno)personas.get(indiceAL));
-		Alumno alumno = (Alumno)personas.get(indiceAL);
-		alumno.matricularCurso(gruposDeCursado.get(indiceGC));
-		}
-}
+
 //DEPARTAMENTOS
-//public void cambiarDepto
 public void agragrDepto(Departamento depto) {
 	this.deptos.add(depto);
 }
@@ -289,14 +369,10 @@ public void agregarMatricula(Matricula matricula) {
 public void agregarSeccion(Seccion seccion) {
 	this.secciones.add(seccion);
 }
-
+//SECCIONES
+public void agregarSeccion() {
+	Seccion seccion = new Seccion();
+	secciones.add(seccion);
+	
 }
-
-//public HashMap<Curso, Integer> getCursos() {
-//	return cursos;
-//}
-//
-//public void setCursos(HashMap<Curso, Integer> cursos) {
-//	this.cursos = cursos;
-//}
-
+}
