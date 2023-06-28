@@ -1,6 +1,6 @@
 package entidades;
 import java.util.Scanner;
-public abstract class Empleado extends Persona {
+public abstract class Empleado extends Persona implements Civil {
 private boolean esActivo=true;
 private static int nro=1;
 private int nroLegajo;
@@ -56,6 +56,11 @@ public void setEsActivo(boolean esActivo) {
 public void cambiarLegajo() {
 	this.esActivo=false;
 }
-
+@Override
+public void modificarEstado() {
+	super.modificarEstado();
+	System.out.println("Empleado");
+	System.out.println("AÑO: "+this.añoIncorp +" NRO LEGAJO: "+this.nroLegajo);
+}
 
 }

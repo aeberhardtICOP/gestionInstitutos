@@ -1,6 +1,6 @@
 package entidades;
 
-public class Profesor extends Empleado {
+public class Profesor extends Empleado implements Civil {
 public Departamento depto;
 
 public Profesor() {
@@ -30,7 +30,12 @@ public Departamento getDepto() {
 public void setDepto(Departamento depto) {
 	this.depto = depto;
 }
-
+@Override
+public void modificarEstado() {
+	super.modificarEstado();
+	System.out.println("Profesor:");
+	System.out.println("Depto: "+this.depto.getNombre());
+}
 
 }
 

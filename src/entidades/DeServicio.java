@@ -1,6 +1,6 @@
 package entidades;
 import java.util.Scanner;
-public class DeServicio extends Empleado {
+public class DeServicio extends Empleado implements Civil{
 private Seccion Seccion;
 
 public DeServicio(String nombre, String apellido, estadoCivil estCivil, int dni, int añoIncorp,
@@ -26,7 +26,12 @@ public Seccion getSeccion() {
 public void setSeccion(Seccion seccion) {
 	Seccion = seccion;
 }
-
+@Override
+public void modificarEstado() {
+	super.modificarEstado();
+	System.out.println("Empleado de servicio:");
+	System.out.println("Seccion: "+this.Seccion.getNombre());
+}
 
 }
 

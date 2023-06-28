@@ -215,7 +215,7 @@ public void agregarPersona(Persona persona){
 public void cambiarEstadoCivil() {
 	System.out.println("Seleccione persona que desea modificar: ");
 	int indiceP=buscarPersona();
-	personas.get(indiceP).setEstado();
+	personas.get(indiceP).modificarEstado();
 	
 }
 
